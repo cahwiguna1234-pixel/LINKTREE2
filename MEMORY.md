@@ -1,0 +1,1 @@
+- [karpathy-guidelines installed](memory/karpathy-guidelines-installed.md) — karpathy-guidelines skill from multica-ai/andrej-karpathy-skills at .claude/skills/karpathy-guidelines/SKILL.md

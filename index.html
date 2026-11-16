@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<link rel="preload" href="JungleTroubles_PERSONAL_USE_ONLY.otf" as="font" type="font/otf" crossorigin>
+<title>bhyonna6 · Linktree</title>
+<style>
+  /* Arah visual: kolase zine dari gambar yang dikirim pemilik. Dial: ENERGY 3 / RHYTHM 2 / MOTION 1.
+     Kertas putih + tinta hitam dari koran, kuning #FBC61B dari petir, kobalt #3A76F9 dari bintang dan tangan. */
+  /* Masthead memakai font unggahan pemilik: brush tebal, lebih "ditempel tangan" daripada serif koran.
+     File .otf ikut di folder yang sama supaya tipenya tampil sama di HP, bukan cuma di laptop pemilik. */
+  @font-face {
+    font-family: "Jungle Troubles";
+    src: url("JungleTroubles_PERSONAL_USE_ONLY.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --paper: #ffffff;
+    --ink: #111111;
+    --muted: #4b4b4b;
+    --yellow: #fbc61b;
+    --blue: #3a76f9;
+    --sheet-width: 360px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-size: clamp(15px, 1.15vw, 16px);
+    line-height: 1.5;
+  }
+
+  body {
+    /* Sans sistem untuk label dan catatan: netral dan terbaca, tidak bersaing dengan masthead brush. */
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Nanum Gothic", "Malgun Gothic", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    padding: 34px 20px 30px;
+  }
+
+  /* Gambar jadi halaman: latar putihnya menyatu dengan body, jadi tepi foto tidak terlihat sebagai kotak tempelan.
+     Di layar potret, gambar mengisi tinggi; di layar lebar, seluruh kolase tampil utuh sebagai poster di tengah. */
+  .scene {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--paper) url("collage.jpg") center top / cover no-repeat;
+    pointer-events: none;
+  }
+
+  /* Layar lebar: kolase jadi poster berbingkai di tengah, supaya potongan gambar di tepinya terbaca sebagai tepi cetakan, bukan tempelan yang terpotong. */
+  @media (min-width: 620px) and (min-height: 880px) and (min-aspect-ratio: 563/1000) {
+    .scene {
+      inset: 24px auto;
+      left: 50%;
+      width: calc((100vh - 48px) * 0.5625);
+      height: calc(100vh - 48px);
+      transform: translateX(-50%);
+      background-size: cover;
+      border: 2px solid var(--ink);
+      box-shadow: 12px 12px 0 rgba(17, 17, 17, 0.08);
+    }
+  }
+
+  /* Kertas catatan yang ditempel di poster: sudut tegas, garis tinta, bayangan keras, miring sedikit.
+     Bayangan keras tanpa blur itu tepi kertas potong yang menempel, bukan elevasi UI. */
+  .sheet {
+    position: relative;
+    width: 100%;
+    max-width: var(--sheet-width);
+    margin: auto;
+    padding: 32px 22px 26px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    transform: rotate(-0.5deg);
+  }
+
+  /* Dua potong selotip: alasan visual sekaligus penanda bahwa kertas ini ditempel di atas kolase. */
+  .sheet::before,
+  .sheet::after {
+    content: "";
+    position: absolute;
+    top: -13px;
+    width: 82px;
+    height: 26px;
+    background: rgba(251, 198, 27, 0.85);
+    border: 1px solid rgba(17, 17, 17, 0.12);
+    pointer-events: none;
+  }
+
+  .sheet::before { left: 16px; transform: rotate(-5deg); }
+  .sheet::after {
+    right: 14px;
+    transform: rotate(4deg);
+    background: rgba(58, 118, 249, 0.8);
+  }
+
+  /* Foto persegi berbingkai putih + garis tinta: potongan foto yang ditempel, bukan avatar bulat template. */
+  .avatar {
+    display: block;
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 16px;
+    object-fit: cover;
+    background: var(--paper);
+    border: 4px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--ink), 5px 5px 0 0 var(--ink);
+    transform: rotate(2deg);
+  }
+
+  h1 {
+    /* Huruf brush dari file yang diunggah: tinggi kapitalnya cuma sekitar 0,44 em, jadi ukurannya
+       dinaikkan supaya tinggi hurufnya setara masthead serif sebelumnya. */
+    font-family: "Jungle Troubles", Georgia, "Times New Roman", Times, serif;
+    font-size: 3.6rem;
+    line-height: 0.95;
+    font-weight: 400;
+    font-synthesis: none;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+
+  /* Versi demo font ini mengganti semua angka 0-9 dengan stempel "PERSONAL USE ONLY".
+     Digit 6 diambil dari glyph superscript (U+2076) yang masih bersih, lalu dibesarkan dan
+     diturunkan agar duduk di garis dasar seperti angka biasa. Stroke tipis mengejar tebal brush. */
+  h1 .mark {
+    display: inline-block;
+    font-size: 1.1em;
+    transform: translateY(0.1em);
+    -webkit-text-stroke: 0.016em currentColor;
+  }
+
+  .sub {
+    margin: 14px 0 22px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 12px 14px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.25;
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+  }
+
+  /* Miring bergantian: tiap label terlihat dipotong dan ditempel satu per satu, bukan satu blok template. */
+  .links .link:nth-of-type(1) { transform: rotate(-0.4deg); }
+  .links .link:nth-of-type(2) { transform: rotate(0.3deg); }
+  .links .link:nth-of-type(3) { transform: rotate(-0.25deg); }
+  .links .link:nth-of-type(4) { transform: rotate(0.35deg); }
+
+  .link:hover {
+    transform: rotate(0deg) translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+
+  .link:active {
+    transform: rotate(0deg) translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .link:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  .link svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* Order: kuning petir, satu-satunya bidang paling terang di kartu. */
+  .link.primary {
+    background: var(--yellow);
+  }
+
+  /* Saluran: kobalt bintang, penanda tujuan kedua. Teks tetap tinta agar kontras 5,1:1. */
+  .link.channel {
+    background: var(--blue);
+  }
+
+  /* Catatan APK lain: ditempel tepat di bawah tombol order, jadi terbaca sebelum orang membuka WhatsApp. */
+  .link-note {
+    margin: 1px 0 2px;
+    padding: 0 6px;
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.45;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  /* Stabilo kuning di bawah "WINK, CC DLL": satu-satunya penanda teks, untuk info APK lain. */
+  .link-note strong {
+    font-weight: 700;
+    color: var(--ink);
+    background: linear-gradient(transparent 58%, rgba(251, 198, 27, 0.55) 58%);
+  }
+
+  .foot {
+    margin-top: 22px;
+    color: var(--muted);
+    font-size: 0.74rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+
+  @media (min-width: 480px) {
+    .sheet {
+      max-width: 380px;
+      padding: 36px 26px 30px;
+    }
+
+    .avatar { width: 96px; height: 96px; margin-bottom: 18px; }
+    h1 { font-size: 4.1rem; }
+    .sub { font-size: 0.84rem; margin-bottom: 26px; }
+    .link { min-height: 52px; padding: 14px 16px; font-size: 0.95rem; gap: 12px; }
+    .link svg { width: 20px; height: 20px; }
+    .link-note { font-size: 0.86rem; }
+    .foot { margin-top: 26px; font-size: 0.78rem; }
+  }
+
+  /* Layar pendek: rapatkan ritme agar kolase di atas dan bawah tetap terlihat. */
+  @media (max-height: 700px) {
+    .sheet { padding: 24px 18px 20px; }
+    .avatar { width: 66px; height: 66px; margin-bottom: 12px; }
+    h1 { font-size: 2.55rem; }
+    .sub { margin: 10px 0 14px; font-size: 0.76rem; }
+    .link { min-height: 42px; padding: 9px 12px; font-size: 0.84rem; }
+    .link-note { font-size: 0.78rem; }
+    .foot { margin-top: 14px; font-size: 0.7rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene" aria-hidden="true"></div>
+
+<main class="sheet">
+  <img class="avatar" src="profile.jpg" alt="Foto profil bhyonna6" width="192" height="192">
+  <h1 aria-label="BHYONNA6">bhyonna<span class="mark" aria-hidden="true">&#8310;</span></h1>
+  <p class="sub">GC K-DRAMA &middot; TikTok &middot; Order AM prem 3K 1 YEAR</p>
+
+  <nav class="links" aria-label="Tautan sosial">
+    <!-- Ikon gelembung chat: menandai tautan grup WhatsApp. -->
+    <a href="https://chat.whatsapp.com/DaouXDmwj6WJvvg99E143G?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4&amp;iam=2" class="link" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 8.6 8.6 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/>
+      </svg>
+      GC K-DRAMA (WhatsApp)
+    </a>
+    <!-- Ikon not: TikTok adalah aplikasi video/musik, bukan tautan pesan. -->
+    <a href="https://www.tiktok.com/@bhyonna6?_r=1&amp;_t=ZS-9AyQGUXedxV" class="link" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18V5l12-2v13"/>
+        <path d="M6 19h12l1-2H6z"/>
+      </svg>
+      TikTok @bhyonna6
+    </a>
+    <!-- Ikon tas belanja: tindakan order, bukan unduhan. -->
+    <a href="https://wa.me/6288272770589" class="link primary" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 8h12l-1.2 12H7.2L6 8z"/>
+        <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+      </svg>
+      Order AM prem 3K 1 YEAR
+    </a>
+    <p class="link-note">Apk lain seperti <strong>WINK, CC&nbsp;DLL</strong> di nomor yang sama ya</p>
+    <!-- Ikon megafon: saluran siaran, beda dari grup WhatsApp. -->
+    <a href="https://whatsapp.com/channel/0029Vb9Ral8FMqrSSl58dP33" class="link channel" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 10v4a1 1 0 0 0 1 1h2l4 3V6L6 9H4a1 1 0 0 0-1 1z"/>
+        <path d="M15 9a4 4 0 0 1 0 6"/>
+        <path d="M18 6a8 8 0 0 1 0 12"/>
+      </svg>
+      Saluran Testi &amp; Preset
+    </a>
+  </nav>
+
+  <p class="foot">Buka tautan yang ingin Anda kunjungi.</p>
+</main>
+
+</body>
+</html>
